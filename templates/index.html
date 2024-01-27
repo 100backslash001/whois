@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whois search{% if dname %} {{dname}}{% endif %}</title>
+    <link rel="stylesheet" href={{static}}>
+</head>
+<body>
+    <div class="container">
+        <div class="centered" id="centered">
+            <div>
+                <h1>Whois Lookup</h1>
+            </div>
+            <div>
+                <form action="lookup" method="POST">
+                    <input type="text" name="dname" placeholder="example.com">
+                    <input type="submit" value="find">
+                    <input type="hidden" name="" value={{csrf}}>
+                </form>
+            </div>
+            {% if result.whoisInfo %}
+            <div>
+                <textarea
+                    id='whoisInfo'
+                    disabled readonly
+                >
+                {{result.whoisInfo}}
+                </textarea>
+            </div>
+            {% endif %}
+            {% if result.errors %}
+                <div class="error_notify" id="error_notify">
+                    <h2>Error Occured</h2>
+                    <p>{{result.errors}}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src={{script}}></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+WRONG_DATA = 'Wrong data was passed'
