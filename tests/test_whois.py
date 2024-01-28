@@ -24,6 +24,22 @@ class TestWhois(unittest.TestCase):
         with self.assertRaises(ssl.SSLError):
             whois_test = whois.Whois('test.com')
             whois_test._wrap_ssl()
+    
+    def test_get_whois_raise_if_server_or_domain_not_passed(self):
+        whois_test = whois.Whois('test.com')
+        
+        with self.assertRaises(TypeError):
+            whois_test.get_whois()
+
+    def test_request_return_data(self):
+        whois_test = whois.Whois('google.com')
+        expected_result = r'Domain Name: GOOGLE.COM'
+        
+        actual_result = whois_test.request()
+
+        self.assertIsInstance(actual_result, str)
+
+        self.assertRegex(actual_result, expected_result)
 
 
 if __name__ == '__main__':
